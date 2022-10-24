@@ -5,7 +5,7 @@ public class Input {
     private final Scanner aInput = new Scanner(System.in);
 
     public Position readPosition() {
-        System.out.println("Enter Position");
+        System.out.println("Enter Position (Separated by a comma)");
         while (true) {
             String aLine = aInput.nextLine();
             Position position = parsePosition(aLine);
