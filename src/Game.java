@@ -5,6 +5,6 @@ public class Game {
          */
         Input input = new Input();
         Position aPosition = input.readPosition();
-        System.out.println("Position: " + aPosition);
+        System.out.println(aPosition);
     }
 }
