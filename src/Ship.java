@@ -13,7 +13,6 @@ public class Ship {
         this.length = length;
         this.position = null;
         this.direction = null;
-        testestestes
     }
 
 }
