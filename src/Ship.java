@@ -7,10 +7,13 @@ public class Ship {
     private final int length;
     private Position position;
     private Direction direction;
-}
-public Ship(String name, int length){
+
+    public Ship(String name, int length) {
         this.name = name;
         this.length = length;
         this.position = null;
         this.direction = null;
-    
+        testestestes
+    }
+
+}
