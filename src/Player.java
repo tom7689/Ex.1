@@ -81,33 +81,36 @@ public class Player {
 
     }
 
-    public void player_shoot(Position p){
-        if (shoots.contains(p)){
-            System.out.println("You shot there already, new shoot position please");
-            // new Input shoot
+    public void player_shoot(){
+        System.out.println("Input new shoot (Pos1):");
+        Input in = new Input();
+        Position p=in.readPosition();
+        while(shoots.contains(p)) {
+            System.out.println("You shot there already, new shoot position please:");
+            p = in.readPosition();
         }
-        else {
-            shoots.add(p);
-            if (grid.getPosition(p)==' '){
-                grid.setPosition(p,'o');
-            } else{
-                Ship s;                                 //ship which is hit ???
-                if (s.isDestroyed()){
 
-                }else{
-                    grid.setPosition(p,'X');
-                }
+        shoots.add(p);
+        if (grid.getPosition(p)==' '){
+            grid.setPosition(p,'o');
+        } else{
+            Ship s;                                 //ship which is hit ???
+            if (s.isDestroyed()){
+
+            }else{
+                grid.setPosition(p,'X');
             }
         }
     }
 
     public void player_place(){
-
+        Input in = new Input();
         for ( int i=0; i<fleet.size();i++) {     //picks all ships
             Ship s = fleet.get(i);
-            System.out.println("Give Position for " + s.getName() + " of length " + s.getLength());
-            Position p1 = new Position();                       //startpunkt Input?
-            Position p2 = new Position();                       //endpunkt Input?
+            System.out.println("Input startposition of " + s.getName() + " of length " + s.getLength() +"(Pos1):");
+            Position p1 =in.readPosition();
+            System.out.println("Input endposition (Pos2):");
+            Position p2 = in.readPosition();                       //endpunkt Input?
             if (grid.checkBorder(p1) && grid.checkBorder(p2)){
                 if (grid.spot_isfree(p1,p2)){
                     place_ship(s,p1,p2);
