@@ -65,7 +65,7 @@ public class Player {
     public void place_ship(Ship s,Position p, int direction){
         int row = p.getaRowIndex();
         int col= p.getaColumnIndex();
-        int len = s.get_len();
+        int len = s.size();
 
         if (direction==0){
             for (int i = 0; i<len;i++){
@@ -89,7 +89,7 @@ public class Player {
                 int r = rand.nextInt(100);
                 Position p= new Position(r/10,r%10);
                 int direction= rand.nextInt(2);
-                if (spot_isfree(p,direction,s.get_len())) {
+                if (spot_isfree(p,direction,s.size())) {
                     place_ship(s, p, 0);
                     u = false;
                 }
@@ -144,17 +144,16 @@ public class Player {
 
         for ( int i=0; i<fleet.size();i++) {     //picks all ships
             s = fleet.get(i);
+            System.out.println("Give Position for " + s.name() + " of length " + s.size() + ",a direction (0= vertical, 1= horizontal)");
             boolean u = true;
-
             while (u) {                  //tries to position
                 Position p = new Position(in.readPosition());
                 int direction = Input.readDirection();
-                if (spot_isfree(p, direction, s.get_len())) {
+                if (spot_isfree(p, direction, s.size())){
                     place_ship(s, p, 0);
                     u = false;
                 } else {
-                    Output o = new Output();
-                    o.positions_fehler();
+                    System.out.println("This location is Invalid");
                 }
             }
         }

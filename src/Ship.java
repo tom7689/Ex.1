@@ -14,5 +14,12 @@ public class Ship {
         this.position = null;
         this.direction = null;
     }
+    public int size() {
+        return length;
+    }
+
+    public String name() {
+        return name;
+    }
 
 }
