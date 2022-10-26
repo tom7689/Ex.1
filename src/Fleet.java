@@ -28,7 +28,7 @@ public class Fleet implements Iterable<Ship> {
     public int size() {
         return aShips.size();
     }
-
+    public Ship get(int i){return aShips.get(i);}
     @Override
     public Iterator<Ship> iterator() {
         return aShips.iterator();
