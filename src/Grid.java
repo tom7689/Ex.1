@@ -44,7 +44,7 @@ public class Grid {
         return true;
     }
 
-    public boolean spot_isfree(Position p1, Position p2){                   //checks if grid position is free to place a ship
+    public boolean spot_isfree(Position p1, Position p2){                   //checks if grid position is free to place a shi
         boolean test= true;
         if (p1.getaRowIndex()==p2.getaRowIndex()){
             int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
