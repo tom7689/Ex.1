@@ -9,7 +9,7 @@ public class Grid {
     public static final char HIT = 'X';
     public static final char MISS = 'o';
 
-    public Board(int length){
+    public Board(int length){     
         this.length = length;
         board = initBoard();
     }
@@ -65,5 +65,14 @@ public class Grid {
             }
         }
         return test;
+    }
+    public void printGrid(){
+        for (int i=0;i<10;i++){
+            for (int j=0;j<10;j++){
+                System.out.print("|"+board[i][j]);
+
+            }
+            System.out.println("|");
+        }System.out.println();
     }
 }

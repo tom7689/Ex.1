@@ -19,7 +19,7 @@ public class Player {
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
             for (int i = min; i<=max; i++){
                 Position temp = new Position(i,p1.getaRowIndex());
-                grid.setPosition(temp,s.initial());
+                grid.setPosition(temp,'s');
             }
         }
         if (p1.getaColumnIndex()==p2.getaColumnIndex()){
@@ -28,7 +28,7 @@ public class Player {
 
             for (int i = min; i<=max; i++){
                 Position temp = new Position(p1.getaColumnIndex(),i);
-                grid.setPosition(temp,s.initial());
+                grid.setPosition(temp,'s');
             }
         }
     }
@@ -42,14 +42,14 @@ public class Player {
                 Position p1 = new Position(r / 10, r % 10);
                 int direction = rand.nextInt(2);
                 if (direction == 0) {
-                    Position p2 = new Position(p1.getaColumnIndex(), p1.getaRowIndex() - s.getLength());
-                    if (grid.spot_isfree(p1, p2) && grid.checkBorder(p2)) {
+                    Position p2 = new Position(p1.getaColumnIndex(), p1.getaRowIndex() - (s.getLength()-1));
+                    if (grid.checkBorder(p2) &&grid.spot_isfree(p1, p2) ) {
                         place_ship(s, p1, p2);
                         break;
                     }
                 } else {
-                    Position p2 = new Position(p1.getaColumnIndex() + s.getLength(), p1.getaRowIndex());
-                    if (grid.spot_isfree(p1, p2)  && grid.checkBorder(p2)) {
+                    Position p2 = new Position(p1.getaColumnIndex() + (s.getLength()-1), p1.getaRowIndex());
+                    if (grid.checkBorder(p2)  &&grid.spot_isfree(p1, p2) ) {
                         place_ship(s, p1, p2);
                         break;
                     }
@@ -103,24 +103,44 @@ public class Player {
         }
     }
 
+    public boolean checkLength(Position p1,Position p2, Ship s){
+        int d;
+        if (p1.getaColumnIndex()==p2.getaColumnIndex()){
+            d=Math.abs(p1.getaRowIndex()-p2.getaRowIndex());
+        }else{
+            d=Math.abs(p1.getaColumnIndex()-p2.getaColumnIndex() );
+        }
+        if (d==s.getLength()-1){
+            return true;
+        }
+        return false;
+    }
     public void player_place(){
         Input in = new Input();
         for ( int i=0; i<fleet.size();i++) {     //picks all ships
             Ship s = fleet.get(i);
-            System.out.println("Input startposition of " + s.getName() + " of length " + s.getLength() +"(Pos1):");
-            Position p1 =in.readPosition();
-            System.out.println("Input endposition (Pos2):");
-            Position p2 = in.readPosition();                       //endpunkt Input?
-            if (grid.checkBorder(p1) && grid.checkBorder(p2)){
-                if (grid.spot_isfree(p1,p2)){
-                    place_ship(s,p1,p2);
+            while(true) {
+                System.out.println("Input startposition of " + s.getName() + " of length " + s.getLength() +"(Pos1):");
+                Position p1 =in.readPosition();
+                System.out.println("Input endposition (Pos2):");
+                Position p2 = in.readPosition();//endpunkt Input?
+                if (checkLength(p1,p2,s)) {
+                    if (grid.checkBorder(p1) && grid.checkBorder(p2)) {
+                        if (grid.spot_isfree(p1, p2)) {
+                            place_ship(s, p1, p2);
+                            break;
+                        } else {
+                            System.out.println("Spot is taken new positions please");
+                        }
+                    } else {
+                        System.out.println("Invalid positions new positions please");
+                    }
                 }else{
-                    System.out.println("Spot is taken new positions please");
+                    System.out.println("Invalid length new Position please");
                 }
-            }else{
-                System.out.println("Invalid positions new positions please");
             }
         }
     }
+
 
 }
