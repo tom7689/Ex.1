@@ -82,14 +82,11 @@ public class Player {
     }
 
     public void player_shoot(){
-        System.out.println("Input new shoot (Pos1):");
         Input in = new Input();
-        Position p=in.readPosition();
+        Position p=in.enterShot();
         while(shoots.contains(p)) {
-            System.out.println("You shot there already, new shoot position please:");
-            p = in.readPosition();
+            p = in.enterShot();
         }
-
         shoots.add(p);
         if (grid.getPosition(p)==' '){
             grid.setPosition(p,'o');
@@ -120,6 +117,7 @@ public class Player {
         for ( int i=0; i<fleet.size();i++) {     //picks all ships
             Ship s = fleet.get(i);
             while(true) {
+
                 System.out.println("Input startposition of " + s.getName() + " of length " + s.getLength() +"(Pos1):");
                 Position p1 =in.readPosition();
                 System.out.println("Input endposition (Pos2):");
@@ -141,6 +139,4 @@ public class Player {
             }
         }
     }
-
-
 }

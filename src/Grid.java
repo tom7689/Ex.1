@@ -9,12 +9,12 @@ public class Grid {
     public static final char HIT = 'X';
     public static final char MISS = 'o';
 
-    public Board(int length){     
+    public Grid(int length){
         this.length = length;
         board = initBoard();
     }
 
-    public Board(char[][] matrix){
+    public Grid(char[][] matrix){
         this.length = matrix.length;
         board = matrix;
     }

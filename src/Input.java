@@ -35,8 +35,7 @@ public class Input {
             Position aEndPosition = parsePosition(aLine.substring(3));
                 if (aStartPosition != null && aEndPosition != null) {
                     if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
-                        pShip.setPosition(aStartPosition);
-                        pShip.setOrientation(getOrientation(aStartPosition, aEndPosition));
+                        pShip.setPosition(aStartPosition,aEndPosition);
                         return pShip;
                     }
                 }
@@ -50,20 +49,6 @@ public class Input {
                 pEndPosition.getaColumnIndex() - pStartPosition.getaColumnIndex() == pShip.getLength() - 1 ||
                 pStartPosition.getaRowIndex() - pEndPosition.getaRowIndex() == pShip.getLength() - 1 ||
                 pEndPosition.getaRowIndex() - pStartPosition.getaRowIndex() == pShip.getLength() - 1;
-    }
-    private Orientation getOrientation(Position pStartPosition, Position pEndPosition) {
-        if (pStartPosition.getaColumnIndex() == pEndPosition.getaColumnIndex()) {
-            if (pStartPosition.getaRowIndex() < pEndPosition.getaRowIndex()) {
-                return Orientation.DOWN;
-            }
-            return Orientation.UP;
-        }
-        if (pStartPosition.getaRowIndex() == pEndPosition.getaRowIndex()) {
-            if (pStartPosition.getaColumnIndex() < pEndPosition.getaColumnIndex()) {
-                return Orientation.RIGHT;
-            }
-        }
-        return Orientation.LEFT;
     }
 
     public Position enterShot() {
