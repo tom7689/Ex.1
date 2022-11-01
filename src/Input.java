@@ -22,7 +22,7 @@ public class Input {
         }
 
         int aColumnIndex = aLetter - 'a';
-        int aRowIndex = aNumber - '1' + 1;
+        int aRowIndex = aNumber - '1' +1;
 
         return new Position(aColumnIndex, aRowIndex);
     }
@@ -31,8 +31,8 @@ public class Input {
         while (true) {
             String aLine = aInput.nextLine();
             if (aLine.length() == 5) {
-            Position aStartPosition = parsePosition(aLine.substring(0,2));
-            Position aEndPosition = parsePosition(aLine.substring(3));
+                Position aStartPosition = parsePosition(aLine.substring(0,2));
+                Position aEndPosition = parsePosition(aLine.substring(3));
                 if (aStartPosition != null && aEndPosition != null) {
                     if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
                         pShip.setPosition(aStartPosition,aEndPosition);
@@ -65,4 +65,3 @@ public class Input {
         }
     }
 }
-

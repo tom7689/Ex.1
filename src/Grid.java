@@ -13,6 +13,9 @@ public class Grid {
         this.length = length;
         board = initBoard();
     }
+    public char[][] getGrid(){
+        return board;
+    }
 
     public Grid(char[][] matrix){
         this.length = matrix.length;
@@ -66,14 +69,5 @@ public class Grid {
         }
         return test;
     }
-    public void printGrid(){
-        for (int i=0;i<10;i++){
-            System.out.print(i);
-            for (int j=0;j<10;j++){
-                System.out.print("|"+board[i][j]);
 
-            }
-            System.out.println("|"+i);
-        }System.out.println();
-    }
 }

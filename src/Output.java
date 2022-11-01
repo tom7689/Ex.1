@@ -21,8 +21,13 @@ public class Output {
     private void printGrid(Grid grid) {
         System.out.println(LETTERS);
         System.out.println(SEPARATOR);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(); //What values do I get from the grid?
+        for (int i=0;i<10;i++){
+            System.out.print(i);
+            for (int j=0;j<10;j++){
+                System.out.print("|"+grid.getGrid()[i][j]);
+
+            }
+            System.out.println("|"+i);
         }
         System.out.println(SEPARATOR);
         System.out.println(LETTERS);

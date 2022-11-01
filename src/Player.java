@@ -2,13 +2,11 @@ import java.util.Random;
 import java.util.ArrayList;
 public class Player {
     private Fleet fleet;
-    private String name;
     public Grid grid;
 
     public ArrayList<Position> shoots= new ArrayList<>();
 
-    public Player(String name,Fleet fleet,Grid grid){
-        this.name = name;
+    public Player(Fleet fleet,Grid grid){
         this.fleet = fleet;
         this.grid = grid;
     }
@@ -19,7 +17,8 @@ public class Player {
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
             for (int i = min; i<=max; i++){
                 Position temp = new Position(i,p1.getaRowIndex());
-                grid.setPosition(temp,'s');
+                grid.setPosition(temp,'p');
+                s.addPosition(temp);
             }
         }
         if (p1.getaColumnIndex()==p2.getaColumnIndex()){
@@ -28,7 +27,8 @@ public class Player {
 
             for (int i = min; i<=max; i++){
                 Position temp = new Position(p1.getaColumnIndex(),i);
-                grid.setPosition(temp,'s');
+                grid.setPosition(temp,'p');
+                s.addPosition(temp);
             }
         }
     }
@@ -57,8 +57,23 @@ public class Player {
             }
         }
     }
+    private Ship searchHit(Position p,Fleet EnemyFleet){
+        Ship s;
+        for (int i =0 ; i < fleet.size();i++){
+            s = EnemyFleet.get(i);
+            for (int j = 0; j<s.Positions.size();j++){
+                Position p1 = s.Positions.get(j);
+                if (p.getaColumnIndex()==p1.getaColumnIndex() && p.getaRowIndex()==p1.getaRowIndex()){
+                    s.setHit();
+                    return s;
+                }
+            }
+        }
+        s= new Ship("",0);
+        return  s;
 
-    public void com_shoot(){
+    }
+    public void com_shoot(Grid EnemyGrid,Fleet EnemyFleet){
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);
@@ -68,73 +83,61 @@ public class Player {
         }
         shoots.add(p);
 
-        if (grid.getPosition(p)==' '){
-            grid.setPosition(p,'o');
+        if (EnemyGrid.getPosition(p)==' '){
+            EnemyGrid.setPosition(p,'o');
         } else{
-            Ship s;                                 //ship which is hit ???
+            Ship s = searchHit(p,EnemyFleet);
+            if (s.getLength()==0){
+                System.out.print("FEHLER");
+            }
             if (s.isDestroyed()){
-
-            }else{
-                grid.setPosition(p,'X');
+              for (int i = 0; i<s.getLength();i++){
+                  Position p1 = s.Positions.get(i);
+                  EnemyGrid.setPosition(p1,'s');
+              }
+            }
+            else{
+                EnemyGrid.setPosition(p,'X');
             }
         }
 
     }
 
-    public void player_shoot(){
+    public void player_shoot(Grid EnemyGrid,Fleet EnemyFleet){
         Input in = new Input();
         Position p=in.enterShot();
         while(shoots.contains(p)) {
             p = in.enterShot();
         }
         shoots.add(p);
-        if (grid.getPosition(p)==' '){
-            grid.setPosition(p,'o');
+        if (EnemyGrid.getPosition(p)==' '){
+            EnemyGrid.setPosition(p,'o');
         } else{
-            Ship s;                                 //ship which is hit ???
+            Ship s = searchHit(p,EnemyFleet);
             if (s.isDestroyed()){
-
+                for (int i = 0; i<s.getLength();i++){
+                    Position p1 = s.Positions.get(i);
+                    EnemyGrid.setPosition(p1,'s');
+                }
             }else{
-                grid.setPosition(p,'X');
+                EnemyGrid.setPosition(p,'X');
+                searchHit(p,EnemyFleet);
             }
         }
     }
 
-    public boolean checkLength(Position p1,Position p2, Ship s){
-        int d;
-        if (p1.getaColumnIndex()==p2.getaColumnIndex()){
-            d=Math.abs(p1.getaRowIndex()-p2.getaRowIndex());
-        }else{
-            d=Math.abs(p1.getaColumnIndex()-p2.getaColumnIndex() );
-        }
-        if (d==s.getLength()-1){
-            return true;
-        }
-        return false;
-    }
     public void player_place(){
         Input in = new Input();
         for ( int i=0; i<fleet.size();i++) {     //picks all ships
             Ship s = fleet.get(i);
-            while(true) {
-
-                System.out.println("Input startposition of " + s.getName() + " of length " + s.getLength() +"(Pos1):");
-                Position p1 =in.readPosition();
-                System.out.println("Input endposition (Pos2):");
-                Position p2 = in.readPosition();//endpunkt Input?
-                if (checkLength(p1,p2,s)) {
-                    if (grid.checkBorder(p1) && grid.checkBorder(p2)) {
-                        if (grid.spot_isfree(p1, p2)) {
-                            place_ship(s, p1, p2);
-                            break;
-                        } else {
-                            System.out.println("Spot is taken new positions please");
-                        }
-                    } else {
-                        System.out.println("Invalid positions new positions please");
-                    }
+            in.inputShipPosition(s);
+            while (true){
+                if (grid.spot_isfree(s.getStartPosition(),s.getEndPosition())){
+                    place_ship(s,s.getStartPosition(),s.getEndPosition());
+                    break;
                 }else{
-                    System.out.println("Invalid length new Position please");
+                    System.out.println("Spot is already taken, try a new position");
+                    in.inputShipPosition(s);
                 }
             }
         }

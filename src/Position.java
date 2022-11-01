@@ -8,6 +8,7 @@ public final class Position {
     private final int aColumnIndex;
     private final int aRowIndex;
 
+
     public Position(int pColumn, int pRow) {
         assert pRow >= 0 && pColumn >= 0;
         aColumnIndex = pColumn;
