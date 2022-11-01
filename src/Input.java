@@ -27,7 +27,7 @@ public class Input {
         return new Position(aColumnIndex, aRowIndex);
     }
     public Ship inputShipPosition(Ship pShip) {
-        System.out.println("Place your " + pShip.getName() + " (start and end position, separated by a comma)");
+        System.out.println("Place your " + pShip.getName() + " of length "+pShip.getLength()+" (start and end position, separated by a comma)");
         while (true) {
             String aLine = aInput.nextLine();
             if (aLine.length() == 5) {

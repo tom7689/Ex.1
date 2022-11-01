@@ -17,7 +17,7 @@ public class Player {
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
             for (int i = min; i<=max; i++){
                 Position temp = new Position(i,p1.getaRowIndex());
-                grid.setPosition(temp,'p');
+                grid.setPosition(temp,s.getInitial());
                 s.addPosition(temp);
             }
         }
@@ -27,7 +27,7 @@ public class Player {
 
             for (int i = min; i<=max; i++){
                 Position temp = new Position(p1.getaColumnIndex(),i);
-                grid.setPosition(temp,'p');
+                grid.setPosition(temp,s.getInitial());
                 s.addPosition(temp);
             }
         }
@@ -69,11 +69,11 @@ public class Player {
                 }
             }
         }
-        s= new Ship("",0);
+        s= new Ship("",0,'L');
         return  s;
 
     }
-    public void com_shoot(Grid EnemyGrid,Fleet EnemyFleet){
+    public void com_shoot(Player Enemy){
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);
@@ -83,45 +83,48 @@ public class Player {
         }
         shoots.add(p);
 
-        if (EnemyGrid.getPosition(p)==' '){
-            EnemyGrid.setPosition(p,'o');
+        if (Enemy.grid.getPosition(p)==' '){
+            Enemy.grid.setPosition(p,'o');
         } else{
-            Ship s = searchHit(p,EnemyFleet);
-            if (s.getLength()==0){
-                System.out.print("FEHLER");
-            }
+            Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
-              for (int i = 0; i<s.getLength();i++){
-                  Position p1 = s.Positions.get(i);
-                  EnemyGrid.setPosition(p1,'s');
-              }
-            }
-            else{
-                EnemyGrid.setPosition(p,'X');
+                fleet.addSunkShip(s);
+                for (int i = 0; i<s.getLength();i++){
+                    Position p1 = s.Positions.get(i);
+                    Enemy.grid.setPosition(p1,s.getInitial());
+                }
+                if (fleet.size()==fleet.sizeSunk()){
+                    System.out.println("You win");
+                }
+            }else{
+                Enemy.grid.setPosition(p,'X');
             }
         }
 
     }
 
-    public void player_shoot(Grid EnemyGrid,Fleet EnemyFleet){
+    public void player_shoot(Player Enemy){
         Input in = new Input();
         Position p=in.enterShot();
         while(shoots.contains(p)) {
             p = in.enterShot();
         }
         shoots.add(p);
-        if (EnemyGrid.getPosition(p)==' '){
-            EnemyGrid.setPosition(p,'o');
+        if (Enemy.grid.getPosition(p)==' '){
+            Enemy.grid.setPosition(p,'o');
         } else{
-            Ship s = searchHit(p,EnemyFleet);
+            Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
+                fleet.addSunkShip(s);
                 for (int i = 0; i<s.getLength();i++){
                     Position p1 = s.Positions.get(i);
-                    EnemyGrid.setPosition(p1,'s');
+                    Enemy.grid.setPosition(p1,s.getInitial());
+                }
+                if (fleet.size()==fleet.sizeSunk()){
+                    System.out.println("You win");
                 }
             }else{
-                EnemyGrid.setPosition(p,'X');
-                searchHit(p,EnemyFleet);
+                Enemy.grid.setPosition(p,'X');
             }
         }
     }
