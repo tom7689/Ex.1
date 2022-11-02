@@ -4,11 +4,12 @@ public class Player {
     private final Fleet fleet;
     public Grid grid;
 
-    public ArrayList<Position> shoots= new ArrayList<>();
+    private boolean[][] Shoots;
 
     public Player(Fleet fleet,Grid grid){
         this.fleet = fleet;
         this.grid = grid;
+        this.Shoots = new boolean[10][10];
     }
 
     public void place_ship(Ship s,Position p1, Position p2){
@@ -80,11 +81,11 @@ public class Player {
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);
-        while (shoots.contains(p)){
+        while (Shoots[p.getaRowIndex()][p.getaColumnIndex()]){
             target = rand.nextInt(100);
             p= new Position(target/10,target%10);
         }
-        shoots.add(p);
+        Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         if (Enemy.grid.getPosition(p)==' '){
             Enemy.grid.setPosition(p,Grid.MISS);
         } else{
@@ -94,9 +95,6 @@ public class Player {
                 for (int i = 0; i<s.getLength();i++){
                     Position p1 = s.Positions[i];
                     Enemy.grid.setPosition(p1,s.getInitial());
-                }
-                if (fleet.size()==fleet.sizeSunk()){
-                    System.out.println("You win");
                 }
             }else{
                 Enemy.grid.setPosition(p,Grid.HIT);
@@ -108,10 +106,12 @@ public class Player {
     public void player_shoot(Player Enemy){
         Input in = new Input();
         Position p=in.enterShot();
-        while(shoots.contains(p)) {
+        int target= p.getaColumnIndex()*10 + p.getaRowIndex();
+        while (Shoots[p.getaRowIndex()][p.getaColumnIndex()]){
+            System.out.println("already shoot there");
             p = in.enterShot();
         }
-        shoots.add(p);
+        Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         if (Enemy.grid.getPosition(p)==' '){
             Enemy.grid.setPosition(p,Grid.MISS);
         } else{

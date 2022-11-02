@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Game {
     public static void main(String[] args) {
-        Fleet f1 = new Fleet(0, 0, 0, 1);
-        Fleet f2 = new Fleet(0, 0, 0, 1);
+        Fleet f1 = new Fleet(0, 0, 0, 2);
+        Fleet f2 = new Fleet(0, 0, 0, 2);
         Grid g1 = new Grid(10);
         Grid g2 = new Grid(10);
         Player player = new Player(f1, g1);

@@ -1,8 +1,10 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Input {
     private final Scanner aInput = new Scanner(System.in);
+
 
     public Position parsePosition(String pLine) {
         String aLine = pLine.toLowerCase();
@@ -57,7 +59,7 @@ public class Input {
             String aLine = aInput.nextLine();
             if (aLine.length() == 2) {
                 Position aShot = parsePosition(aLine.substring(0, 2));
-                if (aShot != null) {
+                if (aShot != null ) {
                     return aShot;
                 }
             }
