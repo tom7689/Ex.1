@@ -1,7 +1,7 @@
 public class Output {
 
-    private Grid targetGrid;
-    private Grid oceanGrid;
+    private final Grid targetGrid;
+    private final Grid oceanGrid;
     private final String LETTERS = "  A B C D E F G H I J  ";
     private final String SEPARATOR = " +-+-+-+-+-+-+-+-+-+-+ ";
 

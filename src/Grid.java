@@ -1,11 +1,8 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class Grid {
     private final int length; //one variable for rows = columns = 10 [10x10 matrix]
     private char[][] board;
-    private int numShips = 0;
     public static final char HIT = 'X';
     public static final char MISS = 'o';
 
@@ -25,13 +22,12 @@ public class Grid {
     private char[][] initBoard(){
         char[][] matrix = new char[length][length];
         for (char[] row: matrix){
-            Arrays.fill(row, ' ');                                                              // vo null uf ' ' gänderet demit mer grad die leere spaces chönd usgeh
+            Arrays.fill(row, ' ');
         }
         return matrix;
     }
 
     public void reset(){
-        numShips = 0;
         board = initBoard();
     }
 
@@ -41,10 +37,7 @@ public class Grid {
     public void setPosition(Position p, char c){board[p.getaRowIndex()][p.getaColumnIndex()] = c;}
 
     public boolean checkBorder(Position p){
-        if (p.getaColumnIndex()>9 || p.getaColumnIndex()<0 || p.getaRowIndex()>9 || p.getaRowIndex()<0){
-            return false;
-        }
-        return true;
+        return p.getaColumnIndex() <= 9 && p.getaColumnIndex() >= 0 && p.getaRowIndex() <= 9 && p.getaRowIndex() >= 0;
     }
 
     public boolean spot_isfree(Position p1, Position p2){                   //checks if grid position is free to place a shi
@@ -55,6 +48,7 @@ public class Grid {
             for (int i = min; i<=max; i++){
                 if (board[p1.getaRowIndex()][i]!=' '){
                     test=false;
+                    break;
                 }
             }
         }
@@ -64,6 +58,7 @@ public class Grid {
             for (int i = min; i<=max; i++){
                 if (board[i][p1.getaColumnIndex()]!=' '){
                     test=false;
+                    break;
                 }
             }
         }

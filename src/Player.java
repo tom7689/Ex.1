@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.ArrayList;
 public class Player {
-    private Fleet fleet;
+    private final Fleet fleet;
     public Grid grid;
 
     public ArrayList<Position> shoots= new ArrayList<>();
@@ -85,9 +85,8 @@ public class Player {
             p= new Position(target/10,target%10);
         }
         shoots.add(p);
-
         if (Enemy.grid.getPosition(p)==' '){
-            Enemy.grid.setPosition(p,'o');
+            Enemy.grid.setPosition(p,Grid.MISS);
         } else{
             Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
@@ -100,7 +99,7 @@ public class Player {
                     System.out.println("You win");
                 }
             }else{
-                Enemy.grid.setPosition(p,'X');
+                Enemy.grid.setPosition(p,Grid.HIT);
             }
         }
 
@@ -114,7 +113,7 @@ public class Player {
         }
         shoots.add(p);
         if (Enemy.grid.getPosition(p)==' '){
-            Enemy.grid.setPosition(p,'o');
+            Enemy.grid.setPosition(p,Grid.MISS);
         } else{
             Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
@@ -125,15 +124,12 @@ public class Player {
                 }
             }
             else{
-                Enemy.grid.setPosition(p,'X');
+                Enemy.grid.setPosition(p,Grid.HIT);
             }
         }
     }
     public boolean win(){
-        if (fleet.size()==fleet.sizeSunk()){
-            return true;
-        }
-        return false;
+        return fleet.size() == fleet.sizeSunk();
     }
 
     public void player_place(){
