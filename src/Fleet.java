@@ -3,8 +3,8 @@ import java.util.Iterator;
 
 public class Fleet implements Iterable<Ship> {
 
-    private ArrayList<Ship> aShips = new ArrayList<>();
-    private ArrayList<Ship> sunkShips = new ArrayList<>();
+    private final ArrayList<Ship> aShips;
+    private final ArrayList<Ship> sunkShips = new ArrayList<>();
 
     public Fleet(ArrayList<Ship> pShips) {
         aShips = pShips;

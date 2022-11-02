@@ -1,16 +1,19 @@
-public class Player implements Spieler {
+import java.util.Random;
+
+public class Computer implements Spieler {
     public final Fleet fleet;
     public Grid grid;
     public Grid targetGrid;
 
     private final boolean[][] Shoots;
 
-    public Player(Fleet fleet,Grid grid, Grid target){
+    public Computer(Fleet fleet,Grid grid, Grid target){
         this.fleet = fleet;
         this.grid = grid;
         this.targetGrid = target;
         this.Shoots = new boolean[10][10];
     }
+
 
     public void place_ship(Ship s,Position p1, Position p2){
         if (p1.getaRowIndex()==p2.getaRowIndex()){
@@ -36,9 +39,7 @@ public class Player implements Spieler {
             }
         }
     }
-
-
-    public Ship searchHit(Position p,Fleet EnemyFleet){
+    public Ship searchHit(Position p, Fleet EnemyFleet){
         Ship s;
         for (int i =0 ; i < fleet.size();i++){
             s = EnemyFleet.get(i);
@@ -54,13 +55,36 @@ public class Player implements Spieler {
         return null;
 
     }
+    public void place() {                      //places the ships for com
+        Random rand = new Random();
+        for (int i = 0; i < fleet.size(); i++) {     //picks all ships
+            Ship s = fleet.get(i);
+            while (true) {                                              //tries to position at random
+                int r = rand.nextInt(100);
+                Position p1 = new Position(r / 10, r % 10);
+                int direction = rand.nextInt(2);
+                Position p2;
+                if (direction == 0) {
+                    p2 = new Position(p1.getaColumnIndex(), p1.getaRowIndex() - (s.getLength() - 1));
+                } else {
+                    p2 = new Position(p1.getaColumnIndex() + (s.getLength() - 1), p1.getaRowIndex());
+                }
+                if (grid.checkBorder(p2) &&grid.spot_isfree(p1, p2) ) {
+                    place_ship(s, p1, p2);
+                    break;
+                }
+            }
+        }
+    }
 
-    public void shoot(Computer Enemy){
-        Input in = new Input();
-        Position p=in.enterShot();
+
+    public void shoot(Player Enemy){
+        Random rand = new Random();
+        int target = rand.nextInt(100);
+        Position p= new Position(target/10,target%10);
         while (Shoots[p.getaRowIndex()][p.getaColumnIndex()]){
-            System.out.println("already shoot there");
-            p = in.enterShot();
+            target = rand.nextInt(100);
+            p= new Position(target/10,target%10);
         }
         Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         if (Enemy.grid.getPosition(p)==' '){
@@ -75,32 +99,16 @@ public class Player implements Spieler {
                     Enemy.grid.setPosition(p1,s.getInitial());
                     targetGrid.setPosition(p1, s.getInitial());
                 }
-            }
-            else{
+            }else{
                 Enemy.grid.setPosition(p,Grid.HIT);
                 targetGrid.setPosition(p, Grid.HIT);
             }
         }
+
     }
+
+    @Override
     public boolean win(){
         return fleet.size() == fleet.sizeSunk();
     }
-
-    public void place(){
-        Input in = new Input();
-        for ( int i=0; i<fleet.size();i++) {     //picks all ships
-            Ship s = fleet.get(i);
-            in.inputShipPosition(s);
-            while (true){
-                if (grid.spot_isfree(s.getStartPosition(),s.getEndPosition())){
-                    place_ship(s,s.getStartPosition(),s.getEndPosition());
-                    break;
-                }else{
-                    System.out.println("Spot is already taken, try a new position");
-                    in.inputShipPosition(s);
-                }
-            }
-        }
-    }
 }
-

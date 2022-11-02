@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Grid {
     private final int length; //one variable for rows = columns = 10 [10x10 matrix]
-    private char[][] board;
+    private final char[][] board;
     public static final char HIT = 'X';
     public static final char MISS = 'o';
 
@@ -14,11 +14,6 @@ public class Grid {
         return board;
     }
 
-    public Grid(char[][] matrix){
-        this.length = matrix.length;
-        board = matrix;
-    }
-
     private char[][] initBoard(){
         char[][] matrix = new char[length][length];
         for (char[] row: matrix){
@@ -26,11 +21,6 @@ public class Grid {
         }
         return matrix;
     }
-
-    public void reset(){
-        board = initBoard();
-    }
-
 
     public char getPosition(Position p) {return board[p.getaRowIndex()][p.getaColumnIndex()];}
 

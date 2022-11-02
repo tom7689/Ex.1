@@ -2,8 +2,6 @@ public class Output {
 
     private final Grid targetGrid;
     private final Grid oceanGrid;
-    private final String LETTERS = "  A B C D E F G H I J  ";
-    private final String SEPARATOR = " +-+-+-+-+-+-+-+-+-+-+ ";
 
     public Output(Grid targetGrid, Grid oceanGrid) {
         this.targetGrid = targetGrid;
@@ -19,7 +17,9 @@ public class Output {
     }
 
     private void printGrid(Grid grid) {
+        String LETTERS = "  A B C D E F G H I J  ";
         System.out.println(LETTERS);
+        String SEPARATOR = " +-+-+-+-+-+-+-+-+-+-+ ";
         System.out.println(SEPARATOR);
         for (int i=0;i<10;i++){
             System.out.print(i);

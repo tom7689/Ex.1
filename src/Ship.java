@@ -71,10 +71,7 @@ public class Ship {
         hits++;
     }
     public boolean isDestroyed(){
-        if (hits == length){
-            return true;
-        }
-        return false;
+        return hits == length;
     }
 
     public String toString(){

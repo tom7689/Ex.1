@@ -9,23 +9,23 @@ public class Game {
         Grid t1 = new Grid(10);
         Grid t2 = new Grid(10);
         Player player = new Player(f1, g1, t1);
-        Player com = new Player(f2, g2, t2);
-        com.com_place();
+        Computer com = new Computer(f2, g2, t2);
+        com.place();
         Output out = new Output(t1, g1);
         out.print();
-        player.player_place();
+        player.place();
         out.print();
         Random rand = new Random();
         int r = rand.nextInt(2);
         if (r == 0) {
             System.out.println("Player begins");
             while (true) {
-                player.player_shoot(com);
+                player.shoot(com);
                 if (player.win()) {
                     System.out.println("You win");
                     break;
                 }
-                com.com_shoot(player);
+                com.shoot(player);
                 out.print();
                 if (com.win()) {
                     System.out.println("Computer wins");
@@ -36,12 +36,12 @@ public class Game {
         if(r==1){
             System.out.println("Computer begins");
             while (true) {
-                com.com_shoot(player);
+                com.shoot(player);
                 if (com.win()) {
                     System.out.println("Computer wins");
                     break;
                 }
-                player.player_shoot(com);
+                player.shoot(com);
                 out.print();
                 if (player.win()) {
                     System.out.println("You win");
@@ -51,4 +51,4 @@ public class Game {
             }
         }
     }
-}// win nachricht, com board nicht anzeichen
+}
