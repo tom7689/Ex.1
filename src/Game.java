@@ -6,10 +6,12 @@ public class Game {
         Fleet f2 = new Fleet(Ship.getComShips());
         Grid g1 = new Grid(10);
         Grid g2 = new Grid(10);
-        Player player = new Player(f1, g1);
-        Player com = new Player(f2, g2);
+        Grid t1 = new Grid(10);
+        Grid t2 = new Grid(10);
+        Player player = new Player(f1, g1, t1);
+        Player com = new Player(f2, g2, t2);
         com.com_place();
-        Output out = new Output(g2, g1);
+        Output out = new Output(t1, g1);
         out.print();
         player.player_place();
         out.print();

@@ -3,12 +3,14 @@ import java.util.ArrayList;
 public class Player {
     private final Fleet fleet;
     public Grid grid;
+    public Grid targetGrid;
 
     private boolean[][] Shoots;
 
-    public Player(Fleet fleet,Grid grid){
+    public Player(Fleet fleet,Grid grid, Grid target){
         this.fleet = fleet;
         this.grid = grid;
+        this.targetGrid = target;
         this.Shoots = new boolean[10][10];
     }
 
@@ -88,6 +90,7 @@ public class Player {
         Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         if (Enemy.grid.getPosition(p)==' '){
             Enemy.grid.setPosition(p,Grid.MISS);
+            targetGrid.setPosition(p, Grid.MISS);
         } else{
             Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
@@ -95,9 +98,11 @@ public class Player {
                 for (int i = 0; i<s.getLength();i++){
                     Position p1 = s.Positions[i];
                     Enemy.grid.setPosition(p1,s.getInitial());
+                    targetGrid.setPosition(p1, s.getInitial());
                 }
             }else{
                 Enemy.grid.setPosition(p,Grid.HIT);
+                targetGrid.setPosition(p, Grid.HIT);
             }
         }
 
@@ -114,6 +119,7 @@ public class Player {
         Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         if (Enemy.grid.getPosition(p)==' '){
             Enemy.grid.setPosition(p,Grid.MISS);
+            targetGrid.setPosition(p, Grid.MISS);
         } else{
             Ship s = searchHit(p,Enemy.fleet);
             if (s.isDestroyed()){
@@ -121,10 +127,12 @@ public class Player {
                 for (int i = 0; i<s.getLength();i++){
                     Position p1 = s.Positions[i];
                     Enemy.grid.setPosition(p1,s.getInitial());
+                    targetGrid.setPosition(p1, s.getInitial());
                 }
             }
             else{
                 Enemy.grid.setPosition(p,Grid.HIT);
+                targetGrid.setPosition(p, Grid.HIT);
             }
         }
     }
