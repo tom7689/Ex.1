@@ -15,20 +15,23 @@ public class Player {
         if (p1.getaRowIndex()==p2.getaRowIndex()){
             int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
+            int count=0;
             for (int i = min; i<=max; i++){
                 Position temp = new Position(i,p1.getaRowIndex());
                 grid.setPosition(temp,s.getInitial());
-                s.addPosition(temp);
+                s.addPosition(temp,count);
+                count++;
             }
         }
         if (p1.getaColumnIndex()==p2.getaColumnIndex()){
             int max= Math.max(p1.getaRowIndex(),p2.getaRowIndex());
             int min= Math.min(p1.getaRowIndex(),p2.getaRowIndex());
-
+            int count=0;
             for (int i = min; i<=max; i++){
                 Position temp = new Position(p1.getaColumnIndex(),i);
                 grid.setPosition(temp,s.getInitial());
-                s.addPosition(temp);
+                s.addPosition(temp,count);
+                count++;
             }
         }
     }
@@ -61,8 +64,8 @@ public class Player {
         Ship s;
         for (int i =0 ; i < fleet.size();i++){
             s = EnemyFleet.get(i);
-            for (int j = 0; j<s.Positions.size();j++){
-                Position p1 = s.Positions.get(j);
+            for (int j = 0; j<s.Positions.length;j++){
+                Position p1 = s.Positions[j];
                 if (p.getaColumnIndex()==p1.getaColumnIndex() && p.getaRowIndex()==p1.getaRowIndex()){
                     s.setHit();
                     return s;
@@ -90,7 +93,7 @@ public class Player {
             if (s.isDestroyed()){
                 fleet.addSunkShip(s);
                 for (int i = 0; i<s.getLength();i++){
-                    Position p1 = s.Positions.get(i);
+                    Position p1 = s.Positions[i];
                     Enemy.grid.setPosition(p1,s.getInitial());
                 }
                 if (fleet.size()==fleet.sizeSunk()){
@@ -117,16 +120,20 @@ public class Player {
             if (s.isDestroyed()){
                 fleet.addSunkShip(s);
                 for (int i = 0; i<s.getLength();i++){
-                    Position p1 = s.Positions.get(i);
+                    Position p1 = s.Positions[i];
                     Enemy.grid.setPosition(p1,s.getInitial());
                 }
-                if (fleet.size()==fleet.sizeSunk()){
-                    System.out.println("You win");
-                }
-            }else{
+            }
+            else{
                 Enemy.grid.setPosition(p,'X');
             }
         }
+    }
+    public boolean win(){
+        if (fleet.size()==fleet.sizeSunk()){
+            return true;
+        }
+        return false;
     }
 
     public void player_place(){
