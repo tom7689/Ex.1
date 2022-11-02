@@ -73,8 +73,8 @@ public class Player {
                 }
             }
         }
-        s= new Ship("",0,'L');
-        return  s;
+        //s= new Ship("",0,'L');
+        return null;
 
     }
     public void com_shoot(Player Enemy){
