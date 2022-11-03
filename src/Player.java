@@ -44,7 +44,7 @@ public class Player implements Spieler {
             s = EnemyFleet.get(i);
             for (int j = 0; j<s.Positions.length;j++){
                 Position p1 = s.Positions[j];
-                if (p.getaColumnIndex()==p1.getaColumnIndex() && p.getaRowIndex()==p1.getaRowIndex()){
+                if (p.equals(p1)){
                     s.setHit();
                     return s;
                 }
@@ -52,7 +52,6 @@ public class Player implements Spieler {
         }
         //s= new Ship("",0,'L');
         return null;
-
     }
 
     public void shoot(Computer Enemy){
