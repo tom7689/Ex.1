@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 /**
  * Creating position objects. A position consists of first a column and a second row index,
@@ -24,7 +25,20 @@ public final class Position {
     }
 
     @Override
+    public boolean equals(Object pPosition) {
+        if (this == pPosition) return true;
+        if (pPosition == null || getClass() != pPosition.getClass()) return false;
+        Position position = (Position) pPosition;
+        return aColumnIndex == position.aColumnIndex && aRowIndex == position.aRowIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aColumnIndex, aRowIndex);
+    }
+
+    @Override
     public String toString() {
-        return "Position: " + aColumnIndex + "," + aRowIndex;
+        return "Position: " + aColumnIndex + aRowIndex;
     }
 }
