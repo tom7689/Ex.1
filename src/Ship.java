@@ -16,7 +16,7 @@ public class Ship {
                     COM_SHIPS.add(new Ship(aType, aShipName));
                 }
             }
-            else {
+            else if (aType.quantity == 1) {
                 String aShipName = aType.name;
                 PLAYER_SHIPS.add(new Ship(aType, aShipName));
                 COM_SHIPS.add(new Ship(aType, aShipName));
@@ -26,7 +26,7 @@ public class Ship {
     private final String name;
     private final int length;
     private final char initial;
-    public  Position[] Positions;
+    public Position[] Positions;
     public int hits;
 
 
