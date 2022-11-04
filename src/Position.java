@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 /**
- * Creating position objects. A position consists of first a column and a second row index,
+ * Creating position objects. A position consists of first a column and second a row index,
  * as the input is created as well in this order. Instances of this class are immutable.
  */
 public final class Position {
@@ -22,6 +22,12 @@ public final class Position {
 
     public int getaRowIndex() {
         return aRowIndex;
+    }
+    public boolean sameColumn(Position pPosition) {
+        return aColumnIndex == pPosition.getaColumnIndex();
+    }
+    public boolean sameRow(Position pPosition) {
+        return aRowIndex == pPosition.getaRowIndex();
     }
 
     @Override

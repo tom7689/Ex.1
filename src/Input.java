@@ -4,7 +4,7 @@ public class Input {
     private final Scanner aInput = new Scanner(System.in);
 
 
-    public Position parsePosition(String pLine) {
+    private Position parsePosition(String pLine) {
         String aLine = pLine.toLowerCase();
         assert aLine.length() == 2;
 
@@ -18,7 +18,6 @@ public class Input {
             if (aNumber > '9' || aNumber < '0') {
                 System.out.println("Row coordinate is not valid");
             }
-            return null;
         }
 
         int aColumnIndex = aLetter - 'a';
@@ -26,7 +25,7 @@ public class Input {
 
         return new Position(aColumnIndex, aRowIndex);
     }
-    public Ship inputShipPosition(Ship pShip) {
+    public void inputShipPosition(Ship pShip) {
         System.out.println("Place your " + pShip.getName() + " of length "+pShip.getLength()+" (start and end position, separated by a comma)");
         while (true) {
             String aLine = aInput.nextLine();
@@ -35,8 +34,8 @@ public class Input {
                 Position aEndPosition = parsePosition(aLine.substring(3));
                 if (aStartPosition != null && aEndPosition != null) {
                     if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
-                        pShip.setPosition(aStartPosition,aEndPosition);
-                        return pShip;
+                        pShip.setPosition(aStartPosition, aEndPosition);
+                        return;
                     }
                 }
             }
@@ -45,10 +44,8 @@ public class Input {
     }
 
     private boolean hasCorrectLength(Ship pShip, Position pStartPosition, Position pEndPosition) {
-        return pStartPosition.getaColumnIndex() - pEndPosition.getaColumnIndex() == pShip.getLength() - 1 ||
-                pEndPosition.getaColumnIndex() - pStartPosition.getaColumnIndex() == pShip.getLength() - 1 ||
-                pStartPosition.getaRowIndex() - pEndPosition.getaRowIndex() == pShip.getLength() - 1 ||
-                pEndPosition.getaRowIndex() - pStartPosition.getaRowIndex() == pShip.getLength() - 1;
+        return Math.abs(pStartPosition.getaColumnIndex() - pEndPosition.getaColumnIndex()) == pShip.getLength() - 1 ||
+                Math.abs(pStartPosition.getaRowIndex() - pEndPosition.getaRowIndex()) == pShip.getLength() - 1;
     }
 
     public Position enterShot() {

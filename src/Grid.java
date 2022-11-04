@@ -1,52 +1,64 @@
-import java.util.Arrays;
-
 public class Grid {
-    private final int length; //one variable for rows = columns = 10 [10x10 matrix]
-    private final char[][] board;
-    public static final char HIT = 'X';
-    public static final char MISS = 'o';
+    private final Block[][] board;
 
-    public Grid(int length){
-        this.length = length;
+    public Grid(){
         board = initBoard();
     }
-    public char[][] getGrid(){
+    public Block[][] getGrid(){
         return board;
     }
 
-    private char[][] initBoard(){
-        char[][] matrix = new char[length][length];
-        for (char[] row: matrix){
-            Arrays.fill(row, ' ');
+    private Block[][] initBoard(){
+        //one variable for rows = columns = 10 [10x10 matrix]
+        int length = 10;
+        Block[][] board = new Block[length][length];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                board[i][j] = new Block();
+            }
         }
-        return matrix;
+        return board;
     }
 
-    public char getPosition(Position p) {return board[p.getaRowIndex()][p.getaColumnIndex()];}
-
-    public void setPosition(Position p, char c){board[p.getaRowIndex()][p.getaColumnIndex()] = c;}
+    public void setPlayerShip(Ship pShip) {
+        for (Position shipPosition : pShip.getPositions()) {
+            Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
+            block.setPlayerShip(pShip);
+        }
+    }
+    public void setComShip(Ship pShip) {
+        for (Position shipPosition : pShip.getPositions()) {
+            Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
+            block.setComShip(pShip);
+        }
+    }
+    public Block getBlock(Position pPosition) {
+        return board[pPosition.getaRowIndex()][pPosition.getaColumnIndex()];
+    }
 
     public boolean checkBorder(Position p){
         return p.getaColumnIndex() <= 9 && p.getaColumnIndex() >= 0 && p.getaRowIndex() <= 9 && p.getaRowIndex() >= 0;
     }
 
-    public boolean spot_isfree(Position p1, Position p2){                   //checks if grid position is free to place a shi
+    public boolean spotIsFree(Position p1, Position p2){                   //checks if grid position is free to place a shi
         boolean test= true;
-        if (p1.getaRowIndex()==p2.getaRowIndex()){
+        if (p1.sameRow(p2)){
             int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
             for (int i = min; i<=max; i++){
-                if (board[p1.getaRowIndex()][i]!=' '){
+                Block aBlock = board[p1.getaRowIndex()][i];
+                if (aBlock.getType() == Block.type.SHIP){
                     test=false;
                     break;
                 }
             }
         }
-        if (p1.getaColumnIndex()==p2.getaColumnIndex()){
+        if (p1.sameColumn(p2)){
             int max= Math.max(p1.getaRowIndex(),p2.getaRowIndex());
             int min= Math.min(p1.getaRowIndex(),p2.getaRowIndex());
             for (int i = min; i<=max; i++){
-                if (board[i][p1.getaColumnIndex()]!=' '){
+                Block aBlock = board[i][p1.getaColumnIndex()];
+                if (aBlock.getType() == Block.type.SHIP){
                     test=false;
                     break;
                 }
@@ -54,5 +66,4 @@ public class Grid {
         }
         return test;
     }
-
 }

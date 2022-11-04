@@ -11,9 +11,10 @@ public class Output {
     public void print() {
         System.out.println("===== TARGET GRID =====");
         printGrid(this.targetGrid);
-        System.out.println("=======================\n-----------------------\n");
+        System.out.print("=======================\n-----------------------\n");
         System.out.println("===== OCEAN  GRID =====");
         printGrid(this.oceanGrid);
+        System.out.println("=======================");
     }
 
     private void printGrid(Grid grid) {

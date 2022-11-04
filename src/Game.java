@@ -2,16 +2,14 @@ import java.util.Random;
 
 public class Game {
     public static void main(String[] args) {
-        Fleet f1 = new Fleet(Ship.getPlayerShips());
-        Fleet f2 = new Fleet(Ship.getComShips());
-        Grid g1 = new Grid(10);
-        Grid g2 = new Grid(10);
-        Grid t1 = new Grid(10);
-        Grid t2 = new Grid(10);
-        Player player = new Player(f1, g1, t1);
-        Computer com = new Computer(f2, g2, t2);
+        Fleet playerFleet = new Fleet(Ship.getPlayerShips());
+        Fleet comFleet = new Fleet(Ship.getComShips());
+        Grid playerGrid = new Grid();
+        Grid comGrid = new Grid();
+        Player player = new Player(playerFleet, playerGrid);
+        Computer com = new Computer(comFleet, comGrid);
         com.place();
-        Output out = new Output(t1, g1);
+        Output out = new Output(comGrid, playerGrid);
         out.print();
         player.place();
         out.print();
@@ -41,13 +39,13 @@ public class Game {
                     System.out.println("Computer wins");
                     break;
                 }
+                out.print();
                 player.shoot(com);
                 out.print();
                 if (player.win()) {
                     System.out.println("You win");
                     break;
                 }
-
             }
         }
     }

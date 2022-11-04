@@ -26,7 +26,7 @@ public class Ship {
     private final String name;
     private final int length;
     private final char initial;
-    public Position[] Positions;
+    private final Position[] positions;
     public int hits;
 
 
@@ -35,7 +35,7 @@ public class Ship {
         this.length = type.length;
         this.initial = type.initial;
         this.hits = 0;
-        this.Positions = new Position[length];
+        this.positions = new Position[length];
 
     }
     public static ArrayList<Ship> getPlayerShips() {
@@ -57,15 +57,19 @@ public class Ship {
     }
 
     public Position getStartPosition() {
-        return Positions[0];
+        return positions[0];
     }
     public Position getEndPosition() {
-        return Positions[length-1];
+        return positions[length-1];
+    }
+
+    public Position[] getPositions() {
+        return positions;
     }
 
     public void setPosition(Position Start , Position End) {
-        Positions[0]=Start;
-        Positions[length-1]=End;
+        positions[0]=Start;
+        positions[length-1]=End;
     }
     public void setHit(){
         hits++;
@@ -75,10 +79,10 @@ public class Ship {
     }
 
     public String toString(){
-        return name + ";" + length; /*+ ";" + (position.toString()) + ";" + direction;*/
+        return name + "; " + length; /*+ ";" + (position.toString()) + ";" + direction;*/
     }
     public void addPosition(Position p,int index){
-        Positions[index]=p;
+        positions[index]=p;
     }
 
 }
