@@ -4,9 +4,10 @@ public class Player implements Spieler {
     public Grid targetGrid;
 
 
-    public Player(Fleet fleet, Grid oceanGrid){
+    public Player(Fleet fleet, Grid oceanGrid, Grid targetGrid){
         this.fleet = fleet;
         this.oceanGrid = oceanGrid;
+        this.targetGrid = targetGrid;
     }
 
     public void place_ship(Ship s,Position p1, Position p2){
@@ -51,8 +52,8 @@ public class Player implements Spieler {
             if (aShip.isDestroyed()){
                 fleet.addSunkShip(aShip);
                 for (Position shipPosition : aShip.getPositions()){
-                    Block hitBlock = targetGrid.getBlock(shipPosition);
-                    hitBlock.reveal();
+                    Block hitShipBlock = targetGrid.getBlock(shipPosition);
+                    hitShipBlock.reveal();
                 }
             }
         }
@@ -63,12 +64,14 @@ public class Player implements Spieler {
 
     public void place(){
         Input in = new Input();
-        for ( int i=0; i<fleet.size();i++) {     //picks all ships
+        for (int i=0; i<fleet.size();i++) {     //picks all ships
             Ship s = fleet.get(i);
             in.inputShipPosition(s);
             while (true){
                 if (oceanGrid.spotIsFree(s.getStartPosition(),s.getEndPosition())){
                     place_ship(s,s.getStartPosition(),s.getEndPosition());
+                    Output output = new Output(targetGrid, oceanGrid);
+                    output.print();
                     break;
                 }else{
                     System.out.println("Spot is already taken, try a new position");
