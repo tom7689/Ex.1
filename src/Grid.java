@@ -1,3 +1,6 @@
+/**
+ * represents the playing grid which consists of blocks.
+ */
 public class Grid {
     private final Block[][] board;
 
@@ -8,6 +11,9 @@ public class Grid {
         return board;
     }
 
+    /**
+     * creates a board of blocks when instantiated.
+     */
     private Block[][] initBoard(){
         //one variable for rows = columns = 10 [10x10 matrix]
         int length = 10;
@@ -20,6 +26,10 @@ public class Grid {
         return board;
     }
 
+    /**
+     * different methods for placing the players ships and the computers ships as their representation on the board is
+     * different.
+     */
     public void setPlayerShip(Ship pShip) {
         for (Position shipPosition : pShip.getPositions()) {
             Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
@@ -32,6 +42,11 @@ public class Grid {
             block.setComShip(pShip);
         }
     }
+
+    /**
+     *
+     * @return the block at the respective position
+     */
     public Block getBlock(Position pPosition) {
         return board[pPosition.getaRowIndex()][pPosition.getaColumnIndex()];
     }
@@ -40,24 +55,28 @@ public class Grid {
         return p.getaColumnIndex() <= 9 && p.getaColumnIndex() >= 0 && p.getaRowIndex() <= 9 && p.getaRowIndex() >= 0;
     }
 
-    public boolean spotIsFree(Position p1, Position p2){                   //checks if grid position is free to place a shi
+    /**
+     *
+     * @return true if the spot for the ship placement is available.
+     */
+    public boolean spotIsFree(Position pStartPosition, Position pEndPosition){                   //checks if grid position is free to place a shi
         boolean test= true;
-        if (p1.sameRow(p2)){
-            int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
-            int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
+        if (pStartPosition.sameRow(pEndPosition)){
+            int max= Math.max(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
+            int min= Math.min(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
             for (int i = min; i<=max; i++){
-                Block aBlock = board[p1.getaRowIndex()][i];
+                Block aBlock = board[pStartPosition.getaRowIndex()][i];
                 if (aBlock.isShip()){
                     test=false;
                     break;
                 }
             }
         }
-        if (p1.sameColumn(p2)){
-            int max= Math.max(p1.getaRowIndex(),p2.getaRowIndex());
-            int min= Math.min(p1.getaRowIndex(),p2.getaRowIndex());
+        if (pStartPosition.sameColumn(pEndPosition)){
+            int max= Math.max(pStartPosition.getaRowIndex(),pEndPosition.getaRowIndex());
+            int min= Math.min(pStartPosition.getaRowIndex(),pEndPosition.getaRowIndex());
             for (int i = min; i<=max; i++){
-                Block aBlock = board[i][p1.getaColumnIndex()];
+                Block aBlock = board[i][pStartPosition.getaColumnIndex()];
                 if (aBlock.isShip()){
                     test=false;
                     break;
