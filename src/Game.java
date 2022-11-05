@@ -6,8 +6,8 @@ public class Game {
         Fleet comFleet = new Fleet(Ship.getComShips());
         Grid playerGrid = new Grid();
         Grid comGrid = new Grid();
-        Player player = new Player(playerFleet, playerGrid);
-        Computer com = new Computer(comFleet, comGrid);
+        Player player = new Player(playerFleet, playerGrid, comGrid);
+        Computer com = new Computer(comFleet, comGrid, playerGrid);
         com.place();
         Output out = new Output(comGrid, playerGrid);
         out.print();
@@ -36,12 +36,12 @@ public class Game {
             while (true) {
                 com.shoot(player);
                 if (com.win()) {
+
                     System.out.println("Computer wins");
                     break;
                 }
                 out.print();
                 player.shoot(com);
-                out.print();
                 if (player.win()) {
                     System.out.println("You win");
                     break;
