@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 
+/**
+ * Ships that are created as flyweight objects to ensure that both players get the same amount of ships.
+ */
 public class Ship {
 
     private static final ArrayList<Ship> PLAYER_SHIPS = new ArrayList<>(10);
     private static final ArrayList<Ship> COM_SHIPS = new ArrayList<>(10);
 
-    //flyweight objects
+    // flyweight objects
     static
     {
         for (ShipType aType : ShipType.values()) {
@@ -27,7 +30,7 @@ public class Ship {
     private final int length;
     private final char initial;
     private final Position[] positions;
-    public int hits;
+    private int hits;
 
 
     private Ship(ShipType type, String name) {
@@ -38,9 +41,19 @@ public class Ship {
         this.positions = new Position[length];
 
     }
+
+    /**
+     *
+     * @return all the ships received by the players fleet.
+     */
     public static ArrayList<Ship> getPlayerShips() {
         return PLAYER_SHIPS;
     }
+
+    /**
+     *
+     * @return all the ships received by the computers fleet.
+     */
     public static ArrayList<Ship> getComShips() {
         return COM_SHIPS;
     }
@@ -63,26 +76,50 @@ public class Ship {
         return positions[length-1];
     }
 
+    /**
+     *
+     * @return all positions of the ship.
+     */
     public Position[] getPositions() {
         return positions;
     }
 
-    public void setPosition(Position Start , Position End) {
-        positions[0]=Start;
-        positions[length-1]=End;
+    /**
+     *
+     * @param pStartPosition the start position of the ship already validated from the user.
+     * @param pEndPosition the end position of the ship already validated from the user.
+     */
+    public void setPosition(Position pStartPosition, Position pEndPosition) {
+        positions[0]=pStartPosition;
+        positions[length-1]=pEndPosition;
     }
+
+    /**
+     * increases the hits a ship receives.
+     */
     public void setHit(){
         hits++;
     }
+
+    /**
+     *
+     * @return true when all positions a hit.
+     */
     public boolean isDestroyed(){
         return hits == length;
     }
 
+    /**
+     *
+     * @param pPosition position to add to the ship positions array.
+     * @param index to which index of the ship positions array to add the position.
+     */
+    public void addPosition(Position pPosition, int index){
+        positions[index]=pPosition;
+    }
+
     public String toString(){
         return name + "; " + length; /*+ ";" + (position.toString()) + ";" + direction;*/
-    }
-    public void addPosition(Position p,int index){
-        positions[index]=p;
     }
 
 }
