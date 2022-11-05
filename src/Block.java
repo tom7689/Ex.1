@@ -41,7 +41,7 @@ public class Block {
         aShip = pShip;
         aType = type.SHIP;
         initial = aShip.getInitial();
-        representation = initial;
+        //representation = initial; //to show the computers ships.
     }
 
     /**
