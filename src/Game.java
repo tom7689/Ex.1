@@ -20,29 +20,34 @@ public class Game {
             while (true) {
                 player.shoot(comGrid);
                 if (player.win()) {
+                    out.print();
                     System.out.println("You win");
                     break;
                 }
                 com.shoot(playerGrid);
                 out.print();
                 if (com.win()) {
+                    out.print();
                     System.out.println("Computer wins");
                     break;
                 }
             }
         }
         if(r==1){
+            com.shoot(playerGrid);
+            out.print();
             System.out.println("Computer begins");
             while (true) {
                 com.shoot(playerGrid);
                 if (com.win()) {
-
+                    out.print();
                     System.out.println("Computer wins");
                     break;
                 }
-                out.print();
                 player.shoot(comGrid);
+                out.print();
                 if (player.win()) {
+                    out.print();
                     System.out.println("You win");
                     break;
                 }

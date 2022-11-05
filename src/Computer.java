@@ -94,7 +94,7 @@ public class Computer implements Competitor {
                 if (win()) {
                     for (Ship ship : fleet) {
                         for (Position shipPosition : ship.getPositions()) {
-                            Block notHitShipBlock = targetGrid.getBlock(shipPosition);
+                            Block notHitShipBlock = oceanGrid.getBlock(shipPosition);
                             notHitShipBlock.reveal();
                         }
                     }
