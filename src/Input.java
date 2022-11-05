@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Input {
     private final Scanner aInput = new Scanner(System.in);
 
-
     private Position parsePosition(String pLine) {
         String aLine = pLine.toLowerCase();
         assert aLine.length() == 2;
@@ -30,13 +29,12 @@ public class Input {
         while (true) {
             String aLine = aInput.nextLine();
             if (aLine.length() == 5) {
+                assert aLine.charAt(2) == ',';
                 Position aStartPosition = parsePosition(aLine.substring(0,2));
                 Position aEndPosition = parsePosition(aLine.substring(3));
-                if (aStartPosition != null && aEndPosition != null) {
-                    if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
-                        pShip.setPosition(aStartPosition, aEndPosition);
-                        return;
-                    }
+                if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
+                    pShip.setPosition(aStartPosition, aEndPosition);
+                    return;
                 }
             }
             System.out.println("Ship coordinates are not valid. Try again");
@@ -53,11 +51,8 @@ public class Input {
         while (true) {
             String aLine = aInput.nextLine();
             if (aLine.length() == 2) {
-                Position aShot = parsePosition(aLine.substring(0, 2));
-                if (aShot != null ) {
-                    return aShot;
+                return parsePosition(aLine.substring(0, 2));
                 }
-            }
             System.out.println("Shot coordinates are not valid. Try again");
         }
     }
