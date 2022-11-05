@@ -1,41 +1,61 @@
+/**
+ * represents the human player playing against the computer. Player holds his fleet and his oceanGrid.
+ */
 public class Player implements Spieler {
-    public final Fleet fleet;
-    public Grid oceanGrid;
-    public Grid targetGrid;
+    private final Fleet fleet;
+    private final Grid oceanGrid;
+    private Grid targetGrid;
 
-
+    /**
+     *
+     * @param fleet all the ships that the standard fleet holds.
+     * @param oceanGrid the grid on which the players ships are placed.
+     * @param targetGrid the opponents grid that is assigned already at instantiation of the player to print the target
+     *                   grid while placing the players ships.
+     */
     public Player(Fleet fleet, Grid oceanGrid, Grid targetGrid){
         this.fleet = fleet;
         this.oceanGrid = oceanGrid;
         this.targetGrid = targetGrid;
     }
 
-    public void place_ship(Ship s,Position p1, Position p2){
-        if (p1.sameRow(p2)){
-            int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
-            int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
+    /**
+     *
+     * @param pShip ship which is placed horizontally or vertically on the ocean grid depending on the input positions.
+     * @param pStartPosition the start position of the ship.
+     * @param pEndPosition the end position of the ship.
+     */
+    public void place_ship(Ship pShip, Position pStartPosition, Position pEndPosition){
+        if (pStartPosition.sameRow(pEndPosition)){
+            int max= Math.max(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
+            int min= Math.min(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
             int count=0;
             for (int i = min; i<=max; i++){
-                Position temp = new Position(i,p1.getaRowIndex());
-                s.addPosition(temp,count);
+                Position temp = new Position(i,pStartPosition.getaRowIndex());
+                pShip.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setPlayerShip(s);
+            oceanGrid.setPlayerShip(pShip);
         }
-        if (p1.sameColumn(p2)){
-            int max= Math.max(p1.getaRowIndex(),p2.getaRowIndex());
-            int min= Math.min(p1.getaRowIndex(),p2.getaRowIndex());
+        if (pStartPosition.sameColumn(pEndPosition)){
+            int max= Math.max(pStartPosition.getaRowIndex(),pEndPosition.getaRowIndex());
+            int min= Math.min(pStartPosition.getaRowIndex(),pEndPosition.getaRowIndex());
             int count=0;
             for (int i = min; i<=max; i++){
-                Position temp = new Position(p1.getaColumnIndex(),i);
-                s.addPosition(temp,count);
+                Position temp = new Position(pStartPosition.getaColumnIndex(),i);
+                pShip.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setPlayerShip(s);
+            oceanGrid.setPlayerShip(pShip);
         }
     }
-    public void shoot(Computer Enemy){
-        targetGrid = Enemy.oceanGrid;
+
+    /**
+     * calls the input object to receive shot coordinates and handles the block representation as well as the ship hits.
+     * @param enemyGrid assigning the computers grid to the targetGrid of the player.
+     */
+    public void shoot(Grid enemyGrid){
+        targetGrid = enemyGrid;
         Input in = new Input();
         Position p=in.enterShot();
         while (targetGrid.getBlock(p).isShot()){
@@ -62,6 +82,9 @@ public class Player implements Spieler {
         return fleet.size() == fleet.sizeSunk();
     }
 
+    /**
+     * calls the input object to receive the coordinates to place the ship on the players ocean grid.
+     */
     public void place(){
         Input in = new Input();
         for (int i=0; i<fleet.size();i++) {     //picks all ships
