@@ -5,12 +5,11 @@ public class Computer implements Spieler {
     public Grid oceanGrid;
     public Grid targetGrid;
 
-
-    public Computer(Fleet fleet, Grid oceanGrid){
+    public Computer(Fleet fleet, Grid oceanGrid, Grid targetGrid){
         this.fleet = fleet;
         this.oceanGrid = oceanGrid;
+        this.targetGrid = targetGrid;
     }
-
 
     public void place_ship(Ship s, Position p1, Position p2){
         if (p1.sameRow(p2)){
@@ -79,8 +78,8 @@ public class Computer implements Spieler {
             if (aShip.isDestroyed()) {
                 fleet.addSunkShip(aShip);
                 for (Position shipPosition : aShip.getPositions()) {
-                    Block hitBlock = targetGrid.getBlock(shipPosition);
-                    hitBlock.reveal();
+                    Block hitShipBlock = targetGrid.getBlock(shipPosition);
+                    hitShipBlock.reveal();
                 }
             }
         }
