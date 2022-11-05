@@ -1,9 +1,11 @@
 import java.util.Random;
-
+/**
+ * represents the computer playing against the human player. Computer holds his fleet and his oceanGrid.
+ */
 public class Computer implements Spieler {
-    public final Fleet fleet;
-    public Grid oceanGrid;
-    public Grid targetGrid;
+    private final Fleet fleet;
+    private final Grid oceanGrid;
+    private Grid targetGrid;
 
     public Computer(Fleet fleet, Grid oceanGrid, Grid targetGrid){
         this.fleet = fleet;
@@ -11,6 +13,9 @@ public class Computer implements Spieler {
         this.targetGrid = targetGrid;
     }
 
+    /**
+     * same as player method.
+     */
     public void place_ship(Ship s, Position p1, Position p2){
         if (p1.sameRow(p2)){
             int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
@@ -36,6 +41,9 @@ public class Computer implements Spieler {
         }
     }
 
+    /**
+     * random placement of computer ships.
+     */
     public void place() {                      //places the ships for com
         Random rand = new Random();
         for (int i = 0; i < fleet.size(); i++) {     //picks all ships
@@ -58,9 +66,11 @@ public class Computer implements Spieler {
         }
     }
 
-
-    public void shoot(Player Enemy){
-        targetGrid = Enemy.oceanGrid;
+    /**
+     * same as shoot in class player except the last if statement to reveal all computer ships when computer wins.
+     */
+    public void shoot(Grid enemyGrid){
+        targetGrid = enemyGrid;
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);
