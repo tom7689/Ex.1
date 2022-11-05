@@ -81,6 +81,14 @@ public class Computer implements Spieler {
                     Block hitShipBlock = targetGrid.getBlock(shipPosition);
                     hitShipBlock.reveal();
                 }
+                if (win()) {
+                    for (Ship ship : fleet) {
+                        for (Position shipPosition : ship.getPositions()) {
+                            Block notHitShipBlock = targetGrid.getBlock(shipPosition);
+                            notHitShipBlock.reveal();
+                        }
+                    }
+                }
             }
         }
     }
