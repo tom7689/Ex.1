@@ -1,7 +1,7 @@
 /**
  * represents the human player playing against the computer. Player holds his fleet and his oceanGrid.
  */
-public class Player implements Spieler {
+public class Player implements Competitor {
     private final Fleet fleet;
     private final Grid oceanGrid;
     private Grid targetGrid;
