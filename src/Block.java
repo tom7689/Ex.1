@@ -1,5 +1,5 @@
 public class Block {
-    public enum type {SHIP, EMPTY}
+    private enum type {SHIP, EMPTY}
     private enum status {HIDDEN, HIT, REVEALED}
     private final static char HIDDEN = ' ';
     private final static char HIT = 'X';
@@ -25,7 +25,7 @@ public class Block {
         aShip = pShip;
         aType = type.SHIP;
         initial = aShip.getInitial();
-
+        representation = initial;
     }
     public void setShot() {
         aStatus = status.HIT;
@@ -39,11 +39,17 @@ public class Block {
         aStatus = status.REVEALED;
         representation = initial;
     }
-    public type getType() {
-        return aType;
-    }
     public Ship getaShip() {
         return aShip;
+    }
+    public boolean isEmpty() {
+        return aType == type.EMPTY;
+    }
+    public boolean isShip() {
+        return aType == type.SHIP;
+    }
+    public boolean isShot() {
+        return aStatus == status.HIT || aStatus == status.REVEALED;
     }
     public String toString() {
         return Character.toString(representation);

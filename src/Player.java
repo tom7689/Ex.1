@@ -3,12 +3,10 @@ public class Player implements Spieler {
     public Grid oceanGrid;
     public Grid targetGrid;
 
-    private final boolean[][] Shoots;
 
     public Player(Fleet fleet, Grid oceanGrid){
         this.fleet = fleet;
         this.oceanGrid = oceanGrid;
-        this.Shoots = new boolean[10][10];
     }
 
     public void place_ship(Ship s,Position p1, Position p2){
@@ -39,15 +37,14 @@ public class Player implements Spieler {
         targetGrid = Enemy.oceanGrid;
         Input in = new Input();
         Position p=in.enterShot();
-        while (Shoots[p.getaRowIndex()][p.getaColumnIndex()]){
+        while (targetGrid.getBlock(p).isShot()){
             System.out.println("already shoot there");
             p = in.enterShot();
         }
-        Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         Block enemyBlock = targetGrid.getBlock(p);
-        if (enemyBlock.getType() == Block.type.EMPTY){
+        if (enemyBlock.isEmpty()){
             enemyBlock.setMiss();
-        } else if (enemyBlock.getType() == Block.type.SHIP){
+        } else if (enemyBlock.isShip()){
             enemyBlock.setShot();
             Ship aShip = enemyBlock.getaShip();
             aShip.setHit();

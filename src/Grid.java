@@ -47,7 +47,7 @@ public class Grid {
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
             for (int i = min; i<=max; i++){
                 Block aBlock = board[p1.getaRowIndex()][i];
-                if (aBlock.getType() == Block.type.SHIP){
+                if (aBlock.isShip()){
                     test=false;
                     break;
                 }
@@ -58,7 +58,7 @@ public class Grid {
             int min= Math.min(p1.getaRowIndex(),p2.getaRowIndex());
             for (int i = min; i<=max; i++){
                 Block aBlock = board[i][p1.getaColumnIndex()];
-                if (aBlock.getType() == Block.type.SHIP){
+                if (aBlock.isShip()){
                     test=false;
                     break;
                 }

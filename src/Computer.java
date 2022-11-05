@@ -5,12 +5,10 @@ public class Computer implements Spieler {
     public Grid oceanGrid;
     public Grid targetGrid;
 
-    private final boolean[][] Shoots;
 
     public Computer(Fleet fleet, Grid oceanGrid){
         this.fleet = fleet;
         this.oceanGrid = oceanGrid;
-        this.Shoots = new boolean[10][10];
     }
 
 
@@ -67,15 +65,14 @@ public class Computer implements Spieler {
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);
-        while (Shoots[p.getaRowIndex()][p.getaColumnIndex()]){
+        while (targetGrid.getBlock(p).isShot()){
             target = rand.nextInt(100);
             p= new Position(target/10,target%10);
         }
-        Shoots[p.getaRowIndex()][p.getaColumnIndex()]=true;
         Block enemyBlock = targetGrid.getBlock(p);
-        if (enemyBlock.getType() == Block.type.EMPTY){
+        if (enemyBlock.isEmpty()){
             enemyBlock.setMiss();
-        } else if (enemyBlock.getType() == Block.type.SHIP){
+        } else if (enemyBlock.isShip()){
             enemyBlock.setShot();
             Ship aShip = enemyBlock.getaShip();
             aShip.setHit();
