@@ -2,7 +2,7 @@ import java.util.Random;
 /**
  * represents the computer playing against the human player. Computer holds his fleet and his oceanGrid.
  */
-public class Computer implements Spieler {
+public class Computer implements Competitor {
     private final Fleet fleet;
     private final Grid oceanGrid;
     private Grid targetGrid;
