@@ -54,8 +54,7 @@ public class Player implements Competitor {
      * calls the input object to receive shot coordinates and handles the block representation as well as the ship hits.
      * @param enemyGrid assigning the computers grid to the targetGrid of the player.
      */
-    public void shoot(Grid enemyGrid){
-        targetGrid = enemyGrid;
+    public void shoot(){
         Input in = new Input();
         Position p=in.enterShot();
         while (targetGrid.getBlock(p).isShot()){

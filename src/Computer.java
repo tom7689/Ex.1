@@ -69,8 +69,7 @@ public class Computer implements Competitor {
     /**
      * same as shoot in class player except the last if statement to reveal all computer ships when computer wins.
      */
-    public void shoot(Grid enemyGrid){
-        targetGrid = enemyGrid;
+    public void shoot(){
         Random rand = new Random();
         int target = rand.nextInt(100);
         Position p= new Position(target/10,target%10);

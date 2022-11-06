@@ -18,13 +18,13 @@ public class Game {
         if (r == 0) {
             System.out.println("Player begins");
             while (true) {
-                player.shoot(comGrid);
+                player.shoot();
                 if (player.win()) {
                     out.print();
                     System.out.println("You win");
                     break;
                 }
-                com.shoot(playerGrid);
+                com.shoot();
                 out.print();
                 if (com.win()) {
                     out.print();
@@ -34,17 +34,17 @@ public class Game {
             }
         }
         if(r==1){
-            com.shoot(playerGrid);
+            com.shoot();
             out.print();
             System.out.println("Computer begins");
             while (true) {
-                com.shoot(playerGrid);
+                com.shoot();
                 if (com.win()) {
                     out.print();
                     System.out.println("Computer wins");
                     break;
                 }
-                player.shoot(comGrid);
+                player.shoot();
                 out.print();
                 if (player.win()) {
                     out.print();

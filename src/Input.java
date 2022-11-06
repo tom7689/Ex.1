@@ -21,9 +21,11 @@ public class Input {
         if (aLetter > 'j' || aLetter < 'a' || aNumber > '9' || aNumber < '0') {
             if (aLetter > 'j' || aLetter < 'a') {
                 System.out.println("Column coordinate is not valid");
+                throw new IllegalArgumentException();
             }
             if (aNumber > '9' || aNumber < '0') {
                 System.out.println("Row coordinate is not valid");
+                throw new IllegalArgumentException();
             }
         }
 
@@ -43,12 +45,16 @@ public class Input {
             String aLine = aInput.nextLine();
             if (aLine.length() == 5) {
                 assert aLine.charAt(2) == ',';
-                Position aStartPosition = parsePosition(aLine.substring(0,2));
-                Position aEndPosition = parsePosition(aLine.substring(3));
-                if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
-                    pShip.setPosition(aStartPosition, aEndPosition);
-                    return;
+                try {
+                    Position aStartPosition = parsePosition(aLine.substring(0,2));
+                    Position aEndPosition = parsePosition(aLine.substring(3));
+                    if (hasCorrectLength(pShip, aStartPosition, aEndPosition)) {
+                        pShip.setPosition(aStartPosition, aEndPosition);
+                        return;
+                    }
+                } catch (IllegalArgumentException e) {
                 }
+
             }
             System.out.println("Ship coordinates are not valid. Try again");
         }
@@ -75,8 +81,12 @@ public class Input {
         while (true) {
             String aLine = aInput.nextLine();
             if (aLine.length() == 2) {
-                return parsePosition(aLine.substring(0, 2));
+                try {
+                    return parsePosition(aLine.substring(0, 2));
+                } catch (IllegalArgumentException e){
+                    System.out.println("Shot coordinates are not valid. Try again");
                 }
+            }
             System.out.println("Shot coordinates are not valid. Try again");
         }
     }

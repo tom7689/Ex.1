@@ -1,8 +1,8 @@
 /**
  * defines the different ship types as enums.
  */
-public enum ShipType {CARRIER("Carrier",6, 'C', 1), BATTLESHIP("BattleShip",4, 'B', 2),
-    SUBMARINE("Submarine",3, 'S', 3), PATROLBOAT("PatrolBoat", 2,'P', 4);
+public enum ShipType {CARRIER("Carrier",6, 'C', 1), BATTLESHIP("BattleShip",4, 'B', 0),
+    SUBMARINE("Submarine",3, 'S', 0), PATROLBOAT("PatrolBoat", 2,'P', 0);
 
     public final String name;
     public final int length;
