@@ -3,8 +3,8 @@
  */
 public class Player implements Competitor {
     private final Fleet fleet;
-    private final Grid oceanGrid;
-    private Grid targetGrid;
+    private static final Grid oceanGrid = new Grid();
+    private final Grid targetGrid;
 
     /**
      *
@@ -13,10 +13,16 @@ public class Player implements Competitor {
      * @param targetGrid the opponents grid that is assigned already at instantiation of the player to print the target
      *                   grid while placing the players ships.
      */
-    public Player(Fleet fleet, Grid oceanGrid, Grid targetGrid){
-        this.fleet = fleet;
-        this.oceanGrid = oceanGrid;
-        this.targetGrid = targetGrid;
+    private static final Player instance = new Player();
+    private Player(){
+        this.fleet = new Fleet(Ship.getPlayerShips());
+        this.targetGrid = Computer.getGrid();
+    }
+    public static Player getInstance() {
+        return instance;
+    }
+    public static Grid getGrid() {
+        return oceanGrid;
     }
 
     /**
@@ -52,7 +58,6 @@ public class Player implements Competitor {
 
     /**
      * calls the input object to receive shot coordinates and handles the block representation as well as the ship hits.
-     * @param enemyGrid assigning the computers grid to the targetGrid of the player.
      */
     public void shoot(){
         Input in = new Input();
