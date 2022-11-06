@@ -2,14 +2,14 @@ import java.util.Random;
 
 public class Game {
     public static void main(String[] args) {
-        Fleet playerFleet = new Fleet(Ship.getPlayerShips());
-        Fleet comFleet = new Fleet(Ship.getComShips());
-        Grid playerGrid = new Grid();
-        Grid comGrid = new Grid();
-        Player player = new Player(playerFleet, playerGrid, comGrid);
-        Computer com = new Computer(comFleet, comGrid, playerGrid);
+        //Fleet playerFleet = new Fleet(Ship.getPlayerShips());
+        //Fleet comFleet = new Fleet(Ship.getComShips());
+        //Grid playerGrid = new Grid();
+        //Grid comGrid = new Grid();
+        Player player = Player.getInstance();
+        Computer com = Computer.getInstance();
         com.place();
-        Output out = new Output(comGrid, playerGrid);
+        Output out = new Output(Computer.getGrid(), Player.getGrid());
         out.print();
         player.place();
         out.print();

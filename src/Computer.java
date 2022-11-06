@@ -4,13 +4,20 @@ import java.util.Random;
  */
 public class Computer implements Competitor {
     private final Fleet fleet;
-    private final Grid oceanGrid;
-    private Grid targetGrid;
+    private static final Grid oceanGrid = new Grid();
+    private final Grid targetGrid;
 
-    public Computer(Fleet fleet, Grid oceanGrid, Grid targetGrid){
-        this.fleet = fleet;
-        this.oceanGrid = oceanGrid;
-        this.targetGrid = targetGrid;
+    private static final Computer instance = new Computer();
+
+    private Computer() {
+        this.fleet = new Fleet(Ship.getComShips());
+        this.targetGrid = Player.getGrid();
+    }
+    public static Computer getInstance() {
+        return instance;
+    }
+    public static Grid getGrid() {
+        return oceanGrid;
     }
 
     /**
