@@ -58,20 +58,36 @@ public class Ship {
         return COM_SHIPS;
     }
 
+    /**
+     * @return the name of the Ship.
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * @return the initial of the Ship.
+     */
     public char getInitial(){
         return initial;
     }
 
+    /**
+     * @return the length of the Ship.
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * @return the start Position of the Ship.
+     */
     public Position getStartPosition() {
         return positions[0];
     }
+    /**
+     * @return the end Position of the Ship.
+     */
     public Position getEndPosition() {
         return positions[length-1];
     }
