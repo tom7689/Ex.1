@@ -1,11 +1,16 @@
 public class Output {
 
+    private static final Output INSTANCE = new Output();
     private final Grid targetGrid;
     private final Grid oceanGrid;
 
-    public Output(Grid targetGrid, Grid oceanGrid) {
-        this.targetGrid = targetGrid;
-        this.oceanGrid = oceanGrid;
+    private Output() {
+        this.targetGrid = Computer.getGrid();
+        this.oceanGrid = Player.getGrid();
+    }
+
+    public static Output getInstance() {
+        return INSTANCE;
     }
 
     public void print() {

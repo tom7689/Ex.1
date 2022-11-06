@@ -97,8 +97,7 @@ public class Player implements Competitor {
             while (true){
                 if (oceanGrid.spotIsFree(s.getStartPosition(),s.getEndPosition())){
                     place_ship(s,s.getStartPosition(),s.getEndPosition());
-                    Output output = new Output(targetGrid, oceanGrid);
-                    output.print();
+                    Output.getInstance().print();
                     break;
                 }else{
                     System.out.println("Spot is already taken, try a new position");
