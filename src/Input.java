@@ -21,12 +21,11 @@ public class Input {
         if (aLetter > 'j' || aLetter < 'a' || aNumber > '9' || aNumber < '0') {
             if (aLetter > 'j' || aLetter < 'a') {
                 System.out.println("Column coordinate is not valid");
-                throw new IllegalArgumentException();
             }
             if (aNumber > '9' || aNumber < '0') {
                 System.out.println("Row coordinate is not valid");
-                throw new IllegalArgumentException();
             }
+            throw new IllegalArgumentException();
         }
 
         int aColumnIndex = aLetter - 'a';
