@@ -45,7 +45,7 @@ public class Block {
     }
 
     /**
-     * Sets the Block with a Ship to HIT ('X').
+     * Sets the Block with a Ship to HIT (X).
      */
     public void setShot() {
         assert aShip != null;
@@ -54,7 +54,7 @@ public class Block {
     }
 
     /**
-     * Sets the Block without a Ship to MISS ('o').
+     * Sets the Block without a Ship to MISS (o).
      */
     public void setMiss() {
         assert aShip == null;
