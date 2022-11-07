@@ -23,7 +23,7 @@ public class Computer implements Competitor {
     /**
      * same as player method.
      */
-    public void place_ship(Ship s, Position p1, Position p2){
+    private void place_ship(Ship s, Position p1, Position p2){
         if (p1.sameRow(p2)){
             int max= Math.max(p1.getaColumnIndex(),p2.getaColumnIndex());
             int min= Math.min(p1.getaColumnIndex(),p2.getaColumnIndex());
@@ -33,7 +33,7 @@ public class Computer implements Competitor {
                 s.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setComShip(s);
+            oceanGrid.setShip(instance, s);
         }
         if (p1.sameColumn(p2)){
             int max= Math.max(p1.getaRowIndex(),p2.getaRowIndex());
@@ -44,7 +44,7 @@ public class Computer implements Competitor {
                 s.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setComShip(s);
+            oceanGrid.setShip(instance, s);
         }
     }
 
