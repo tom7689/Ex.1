@@ -8,12 +8,12 @@ public class Player implements Competitor {
 
     /**
      *
-     * @param fleet all the ships that the standard fleet holds.
-     * @param oceanGrid the grid on which the players ships are placed.
-     * @param targetGrid the opponents grid that is assigned already at instantiation of the player to print the target
-     *                   grid while placing the players ships.
+     * fleet: all the ships that the standard fleet holds.
+     * oceanGrid: the grid on which the players ships are placed.
+     * targetGrid: the opponents grid that is assigned at initialisation from static method getGrid().
      */
     private static final Player instance = new Player();
+
     private Player(){
         this.fleet = new Fleet(Ship.getPlayerShips());
         this.targetGrid = Computer.getGrid();
@@ -31,7 +31,7 @@ public class Player implements Competitor {
      * @param pStartPosition the start position of the ship.
      * @param pEndPosition the end position of the ship.
      */
-    public void place_ship(Ship pShip, Position pStartPosition, Position pEndPosition){
+    private void place_ship(Ship pShip, Position pStartPosition, Position pEndPosition){
         if (pStartPosition.sameRow(pEndPosition)){
             int max= Math.max(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
             int min= Math.min(pStartPosition.getaColumnIndex(),pEndPosition.getaColumnIndex());
@@ -41,7 +41,7 @@ public class Player implements Competitor {
                 pShip.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setPlayerShip(pShip);
+            oceanGrid.setShip(instance, pShip);
         }
         if (pStartPosition.sameColumn(pEndPosition)){
             int max= Math.max(pStartPosition.getaRowIndex(),pEndPosition.getaRowIndex());
@@ -52,7 +52,7 @@ public class Player implements Competitor {
                 pShip.addPosition(temp,count);
                 count++;
             }
-            oceanGrid.setPlayerShip(pShip);
+            oceanGrid.setShip(instance, pShip);
         }
     }
 
