@@ -30,16 +30,18 @@ public class Grid {
      * different methods for placing the players ships and the computers ships as their representation on the board is
      * different.
      */
-    public void setPlayerShip(Ship pShip) {
-        for (Position shipPosition : pShip.getPositions()) {
-            Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
-            block.setPlayerShip(pShip);
+    public void setShip(Competitor competitor, Ship pShip) {
+        if (competitor.getClass() == Player.class) {
+            for (Position shipPosition : pShip.getPositions()) {
+                Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
+                block.setPlayerShip(pShip);
+            }
         }
-    }
-    public void setComShip(Ship pShip) {
-        for (Position shipPosition : pShip.getPositions()) {
-            Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
-            block.setComShip(pShip);
+        if (competitor.getClass() == Computer.class) {
+            for (Position shipPosition : pShip.getPositions()) {
+                Block block = board[shipPosition.getaRowIndex()][shipPosition.getaColumnIndex()];
+                block.setComShip(pShip);
+            }
         }
     }
 
